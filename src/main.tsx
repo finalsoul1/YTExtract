@@ -1,9 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { YTE } from './pages/YTE'
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+import 'modern-normalize'
+import './global.css'
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <YTE />
   </React.StrictMode>,
-);
+)

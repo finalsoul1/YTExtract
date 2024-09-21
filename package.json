@@ -12,6 +12,7 @@
   "dependencies": {
     "@tauri-apps/api": "^1",
     "@vanilla-extract/css": "^1.15.5",
+    "modern-normalize": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -21,6 +22,7 @@
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
+    "@vanilla-extract/vite-plugin": "^4.0.15",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^9.11.0",
     "eslint-config-prettier": "^9.1.0",

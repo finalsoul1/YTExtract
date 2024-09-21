@@ -1,0 +1,49 @@
+name: Build Windows App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      CARGO_TERM_COLOR: always
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-pc-windows-msvc
+          override: true
+          profile: minimal
+
+      - name: Install Web Dependencies
+        run: yarn
+
+      - name: Build Frontend
+        run: yarn build
+
+      - name: Install Tauri CLI
+        run: yarn add @tauri-apps/cli
+
+      - name: Install Rust target for Tauri
+        run: rustup target add x86_64-pc-windows-msvc
+
+      - name: Build Tauri App (Windows)
+        run: yarn tauri build
+
+      - name: Upload artifact (Windows build)
+        uses: actions/upload-artifact@v3
+        with:
+          name: tauri-windows-app
+          path: ./src-tauri/target/release/bundle/msi/*.msi # Tauri에서 빌드된 파일 경로 (MSI 또는 EXE)

@@ -10,6 +10,9 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { isEmpty } from '@fxts/core'
+import { invoke } from '@tauri-apps/api'
+import { save } from '@tauri-apps/api/dialog'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { YTEFormValues } from './model'
 
@@ -22,14 +25,44 @@ export const YTE = () => {
     formState: { errors },
   } = useForm<YTEFormValues>()
 
-  console.log({ errors })
+  const [status, setStatus] = useState('')
 
+  const downloadAudio = async (url: string) => {
+    try {
+      // 파일 저장 경로 선택 대화 상자
+      const outputPath = await save({
+        defaultPath: 'audio.mp3', // 기본 파일 이름
+        filters: [
+          { name: 'Audio', extensions: ['mp3'] }, // 파일 필터
+        ],
+      })
+
+      if (!outputPath) {
+        setStatus('Download canceled by user')
+        return
+      }
+
+      // Tauri 명령어로 YouTube 음원 다운로드
+      const result = await invoke('download_audio', {
+        url,
+        outputPath,
+      })
+      setStatus(result as string)
+    } catch (error) {
+      console.error('Download failed:', error)
+      setStatus('Download failed.')
+    }
+  }
+
+  console.log({ status })
   return (
     <Flex justify="center" paddingTop={24}>
       <Stack width={600}>
         <form
           onSubmit={handleSubmit((data) => {
             console.log({ data })
+
+            downloadAudio(data.url)
           })}
         >
           <Stack spacing={6}>

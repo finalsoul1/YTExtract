@@ -1,12 +1,14 @@
-import { Flex } from '../../components/common/Flex'
+import { Flex, Heading, Input, Stack } from '@chakra-ui/react'
 
 interface Props {}
 
 export const YTE = (_: Props) => {
   return (
-    <Flex direction="column" align="center">
-      <h1>YTE</h1>
-      <input type="text" />
+    <Flex justify="center" paddingTop={24}>
+      <Stack width={600} spacing={6}>
+        <Heading>YTE</Heading>
+        <Input placeholder="URL을 입력해주세요." size="lg" bg="white" />
+      </Stack>
     </Flex>
   )
 }

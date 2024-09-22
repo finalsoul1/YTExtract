@@ -3,15 +3,17 @@ import { cx } from '../../../utils/style'
 import * as styles from './flex.css'
 
 interface FlexProps extends HTMLProps<HTMLDivElement> {
-  direction?: keyof typeof styles.directionVariants // flex-direction 속성 추가
+  direction?: keyof typeof styles.directionVariants
   align?: keyof typeof styles.alignVariants
   justify?: keyof typeof styles.justifyVariants
+  gap?: keyof typeof styles.gapVariants
 }
 
 export const Flex = ({
   direction = 'row',
   align = 'stretch',
   justify = 'start',
+  gap = 'default',
   className,
   ...props
 }: FlexProps) => {
@@ -22,6 +24,7 @@ export const Flex = ({
         styles.directionVariants[direction],
         styles.alignVariants[align],
         styles.justifyVariants[justify],
+        styles.gapVariants[gap],
         className,
       )}
       {...props}

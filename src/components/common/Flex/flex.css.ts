@@ -27,3 +27,11 @@ export const justifyVariants = styleVariants({
   around: { justifyContent: 'space-around' },
   evenly: { justifyContent: 'space-evenly' },
 })
+
+export const gapVariants = styleVariants({
+  xsmall: { gap: 2 },
+  small: { gap: 4 },
+  default: { gap: 8 },
+  large: { gap: 16 },
+  xlarge: { gap: 24 },
+})
